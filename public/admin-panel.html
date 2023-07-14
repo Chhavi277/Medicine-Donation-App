@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <style>
+        /* img{
+            
+            background-position: center;
+            width:20%;
+            height:40%;
+
+        } */
+        .navbar
+        {
+            width:100%;
+            height:50%;
+            align-content: center;
+        }
+        body
+        {
+         background-color: beige;
+        }
+      
+       
+        .card
+        {
+          box-shadow: -3px -3px 5px mediumblue;
+          
+          align-items: center;
+            width:65%;
+            height:35%;
+           
+            background-color:white;
+     margin-top: 100px;
+    border-radius: 10px;
+   
+    border-radius:10px 10px 10px 10px;
+    /* margin-right:200px */
+ 
+ 
+    padding: 50px;
+            
+        }
+     
+    </style>
+    <script>
+        $(document).ready(function()
+        {
+            $("#profileblock").click(function()
+       {
+        alert();
+        window.location.replace("/admin-block-users.html");
+       });
+       $("#profiledonor").click(function()
+       {
+        alert();
+        window.location.replace("/admin-all-donors.html");
+       });
+       $("#profileneedy").click(function()
+       {
+        alert();
+        window.location.replace("/admin-all-needy.html");
+       });
+       $("#managerbtn").click(function()
+       {
+        ///alert();
+        window.location.replace("/donor-med-manager.html");
+       });
+       $("#medbtn").click(function()
+       {
+        alert();
+        window.location.replace("/needy-med-search.html");
+       });
+        })
+    </script>
+  </head>
+  <body>
+
+    <div >
+    <nav class="navbar navbar-dark bg-primary">
+        <center><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEDICINE DONATION APP</h1></center>
+      </nav>
+    </div>
+    <div class="container">
+    <div class="row">
+      
+      <div class="col-md-3">
+ 
+        <div class="card">
+          <img src="PICS/agent.jpg" class="card-img-top" alt="...">
+          <Br>
+            <br>
+            <button type="button" class="btn btn-primary" id="profileblock">BLOCK</button>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <img src="PICS/donor.jfif" class="card-img-top" alt="...">
+          <br>
+          <br>
+          <button type="button" class="btn btn-primary" id="profiledonor">DONORS</button>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <img src="PICS/needy.jfif" class="card-img-top" alt="...">
+          <br>
+          <Br>
+            <button type="button" class="btn btn-primary" id="profileneedy">NEEDY</button>
+        </div>
+        </div>
+        <!-- ====================================== -->
+        <div class="col-md-3">
+          <div class="card">
+            <img src="PICS/manager.jfif" width="900px" height="500px" class="card-img-top" alt="">
+         
+                <button type="button" class="btn btn-primary " id="managerbtn">
+                 Medicine Manager
+        </button>
+ 
+          </div>
+        </div>
+        <!-- ======================== -->
+        <div class="col-md-3">
+          <div class="card">
+            <img src="PICS/search med.jfif" width="900px" height="500px" class="card-img-top" alt="">
+           <br>
+           <br>
+           <br>
+                <button type="button" class="btn btn-primary " id="medbtn">
+               Search Medicine
+        </button>
+ 
+          </div>
+        </div>
+        <!-- ====================================== -->
+      </div>
+  
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

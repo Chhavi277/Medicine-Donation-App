@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="js/angular.min.js"></script>
+
+    <script>
+        var modules=angular.module("MyModule",[]);
+        modules.controller("MyController",function($scope,$http)
+        {
+            $scope.jsonAry=[];
+            $scope.fetchusers=function()
+            {
+                $http.get("/fetchusers").then(fxSuccess,function(response)
+                {
+                    alert(JSON.stringify(response.data));
+                });
+                function fxSuccess(response)
+                   {
+                
+                    
+                    $scope.jsonAry=response.data;
+                   }
+            }
+            $scope.doBlock=function(email)
+            {
+                    //alert(email);
+                   if(confirm("R U Sure?")==false)
+                        return;
+
+                   var url="/profile-block-angular?emailidX="+email;
+                   $http.get(url).then(fxSuccess,function(response){
+                        alert(response.data);
+                   });
+                   function fxSuccess(response)
+                   {
+                        //alert(response.data);
+                        $scope.fetchAllRecords();
+                   }
+               
+            }
+            $scope.doResume=function(email)
+            {
+                    //alert(email);
+                   if(confirm("R U Sure?")==false)
+                        return;
+
+                   var url="/profile-resume-angular?emailidX="+email;
+                   $http.get(url).then(fxSuccess,function(response){
+                        alert(response.data);
+                   });
+                   function fxSuccess(response)
+                   {
+                        //alert(response.data);
+                        $scope.fetchAllRecords();
+                   }
+            }
+        })
+
+    </script>
+  </head>
+  <body ng-app="MyModule" ng-controller="MyController" ng-int="fetchusers();">
+    <Center>
+        <p>
+            <input type="button" value="Fetch All Records" ng-click="fetchusers();">
+        </p>
+        <table  rules="all" width="700px" height="700px">
+            <tr bgcolor="lightskyblue" >
+            
+                <th>Email</th>
+                <th>Password</th>
+                <th>User Type</th>
+                <th>status</th>
+                <th>
+                    BLOCK
+                </th>
+                <th>
+                    RESUME
+                </th>
+               
+            </tr>
+            <tr ng-repeat="obj in jsonAry" bgcolor="beige">
+                <td>{{obj.email}}</td>
+                <td>{{obj.pwd}}</td>
+                <td>{{obj.utype}}</td>
+                <td>{{obj.status}}</td>
+                <td>
+                    <input type="button" value="BLOCK" ng-click=doBlock(obj.email);>
+                </td>
+                <td>
+                    <input type="button" value="RESUME" ng-click=doResume(obj.email);>
+                </td>
+
+            </tr>
+        </table>
+    </Center>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

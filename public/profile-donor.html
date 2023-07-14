@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script>
+      function loadFileID(ref) {
+        var image = document.getElementById("prevproof");
+        image.src = URL.createObjectURL(ref.files[0]);
+      }
+      function loadFilePic(ref) {
+        var image = document.getElementById("prevpic");
+        image.src = URL.createObjectURL(ref.files[0]);
+      }
+    </script>
+    <style>
+      .container {
+        width: 1000px;
+        height: 1000px;
+        background-color: darkgrey;
+      }
+      .navbar-text {
+        margin-left: 430px;
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        var activeUser = localStorage.getItem("activeUser");
+        $("#email").val(activeUser).prop("reaadonly", true);
+        alert(activeUser);
+
+        $("#btnSearch").click(function () {
+          var emailid = $("#email").val();
+          var url = "/getProfileObject?email=" + emailid;
+          alert(url);
+          $.getJSON(url, function (responseJSONobject) {
+            
+            if(responseJSONobject.length==0)
+            {
+              alert("Invalid id");
+            }
+            else
+            {
+              alert(JSON.stringify(responseJSONobject[0].name));
+              $("#name").val(responseJSONobject[0].name);
+
+                      $("#mobile").val(responseJSONobject[0].mobile);
+                  $("#address").val(responseJSONobject[0].address);
+               $("#city").val(responseJSONobject[0].city);
+                $("#prooftype").val(responseJSONobject[0].prooftype);
+                  $("#timings").val(responseJSONobject[0].timings);
+                  $("#prevproof").prop("src","uploads/"+responseJSONobject[0].proofpic);
+                  $("#prevpic").prop("src","uploads/"+responseJSONobject[0].profilepic);
+
+                  $("#hdn").val(responseJSONobject[0].profilepic);
+                  $("#hdn1").val(responseJSONobject[0].proofpic);
+                
+            }
+            // alert(JSON.stringify(responseJSONObject));
+            // if (responseJSONObject.length == 0) alert("Invalid Id");
+            // else {
+            //   alert(JSON.stringify(responseJSONObject));
+                        
+            // // }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar bg-dark">
+        <div class="container-fluid">
+          <span class="navbar-text">
+            <center>
+              <font color="white" weight="bolder"><h1>PROFILE</h1></font>
+            </center>
+          </span>
+        </div>
+      </nav>
+      <br />
+      <br />
+      <br />
+      <br />
+      <form class="row g-3" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="hdn" name="hdn" />
+        <input type="hidden" id="hdn1" name="hdn1" />
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="col-md-2">
+          <label for="inputEmail4" class="form-label"> &nbsp;</label>
+          <input
+            type="button"
+            class="btn btn-danger form-control"
+            id="btnSearch"
+            value="Search"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">Name</label>
+          <input type="text" class="form-control" name="name" id="name" placeholder="Chhavi" />
+        </div>
+        <div class="col-md-6">
+          <label for="inputMobile" class="form-label">Mobile Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="mobile"
+            id="mobile"
+            placeholder="123456789"
+          />
+        </div>
+        <div class="col-8">
+          <label for="inputAddress" class="form-label">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="address"
+            id="address"
+            placeholder="Apartment, studio, or floor"
+          />
+        </div>
+        <div class="col-4">
+          <label for="inputCity" class="form-label">City</label>
+          <input
+            type="text"
+            class="form-control"
+            name="city"
+            id="city"
+            list="CityName"
+          />
+          <datalist id="CityName">
+            <option value="Ambala">Ambala</option>
+            <option value="Barnala">Barnala</option>
+            <option value="Chd">Chd</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Bathinda">Bathinda</option>
+          </datalist>
+        </div>
+        <div class="col-md-6">
+          <label for="inputID" class="form-label">Select ID Proof</label>
+          <select id="prooftype" name="prooftype" class="form-control">
+            <option selected>Choose...</option>
+            <option>Aadhar Card</option>
+            <option>Passport</option>
+            <option>Pan Card</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="inputTiming" class="form-label">Contact</label>
+          <input
+            type="text"
+            class="form-control"
+            id="timings"
+            name="timings"
+            placeholder="7:00pm"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="inputpicid" class="form-label">Select ID</label>
+          <input
+            type="file"
+            id="proofpic"
+            name="proofpic"
+            accept=".jpg, .jpeg, .png"
+            onchange="loadFileID(this);"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="inputAddress" class="form-label"
+            >Select Profile Pic</label
+          >
+          <input
+            type="file"
+            id="profilepic"
+            name="profilepic"
+            accept=".jpg, .jpeg, .png"
+            onchange="loadFilePic(this);"
+          />
+        </div>
+        <div class="col-md-6">
+          <center>
+            <img src="" id="prevproof" width="100" height="100" alt="" />
+          </center>
+        </div>
+        <div class="col-md-6">
+          <img src="" id="prevpic" width="100" height="100" alt="" />
+        </div>
+        <br />
+        <br />
+        <br />
+
+        <div class="col-4">
+          <center>
+            <input
+              type="submit"
+              class="btn btn-danger"
+              formaction="/profile-save"
+              value="save"
+            />
+          </center>
+        </div>
+        <div class="col-4">
+          <input
+            type="submit"
+            class="btn btn-danger"
+            formaction="/profile-update"
+            value="update"
+          />
+        </div>
+      </form>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

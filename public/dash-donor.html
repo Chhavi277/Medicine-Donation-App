@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+       
+     
+   
+        .card
+        {
+            align-items: center;
+            width:65%;
+            height:35%;
+           
+            background-color:white;
+     margin-top: 100px;
+    border-radius: 10px;
+    margin-left:20px;
+    border-radius:10px 10px 10px 10px;
+    /* margin-right:200px */
+ 
+ 
+    padding: 50px;
+        }
+        .img
+        {
+            
+        
+            background-size: contain;
+          border-radius: 50%;
+            background-position: center;
+          
+           
+        }
+        .card
+        {
+          box-shadow: -3px -3px 5px mediumblue;
+          background-color: beige;
+        }
+        .titlebody
+        {
+          background-color: blue;
+          width:inherit;
+          height:40%;
+          width:100%
+        }
+        .style
+        {
+          /* font-size: 70px; */
+        font-weight: bolder;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* margin-left: 250px;
+        margin-top: 20px;
+        margin-bottom:20px; */
+        align-content: center;
+        }
+     
+ 
+    </style>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script>
+   
+      $(document).ready(function(){
+            
+      if(localStorage.getItem("activeUser")==null)
+      window.location.replace("/index.html");
+
+
+
+         $("#email").blur(function(){
+        
+          
+          var url="/chkEmailKuch?email="+$("#email").val();
+          $.get(url,function(respKuchStr){
+            $("#errEmail").html(respKuchStr);
+          });
+
+        }); 
+       $("#settingbtn").click(function()
+       {
+       // alert();
+        var email=$("#email").val();
+        var pwd=$("#pwd").val();
+       // var url="/updrec="+email;
+        var newpwd=$("#newpwd").val();
+        var url="/updrec?email="+email+"&pwd="+pwd+"&newpwd="+newpwd;
+        //alert(url);
+        $.get(url,function(respkuch)
+        {
+          
+        })
+       });
+       $("#profilebtn").click(function()
+       {
+        ///alert();
+        window.location.replace("/profile-donor.html");
+       });
+       $("#adminbtn").click(function()
+       {
+        alert();
+        window.location.replace("/admin-panel.html");
+       });
+      
+       $("#availbtn").click(function()
+       {
+        //alert();
+        window.location.replace("/avail-medicine.html");
+       });
+       $("#logout").click(function()
+       {
+        alert();
+        localStorage.removeItem("activeUser");
+        window.location.replace("/index.html");
+       })
+      });
+     </script>
+  </head>
+  <body>
+    
+    <div  class="titlebody">
+      <nav class="navbar bg-primary">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1"><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DASH-DONOR</h1></span>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+          <div class="card">
+            <img src="PICS/agent.jpg" width="900px" height="500px" class="card-img-top" alt="">
+            <div class="card-body ">
+                <button type="button" class="btn btn-primary " id="profilebtn">
+             PROFILE
+        </button>
+      </div>
+  
+          </div>
+        </div>
+       
+        <div class="col-md-3">
+          <div class="card">
+            <img src="PICS/medi.jfif" class="card-img-top" alt="">
+            
+            <br>
+            <div class="card-body">
+                <button type="button" class="btn btn-primary " id="availbtn">
+             AVAIL
+             </button>
+             </div>
+            </div>
+          </div>
+        <div class="col-md-3">
+          <div class="card">
+            <img src="PICS/sett.jfif" width="900px" height="500px" class="card-img-top" alt="...">
+            <div class="card-body">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"   data-bs-whatever="@mdo">SETTINGS</button>
+          </div>
+          </div>
+          </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+            <label  class="form-label" id="errEmail">*</label> 
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Old Password</label>
+            <input type="password" class="form-control" id="pwd" name="pwd">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label"> NewPassword</label>
+            <input type="password" class="form-control" id="newpwd" name="newpwd">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer"> 
+       
+        <input type="submit" class="btn btn-primary" id="settingbtn"  value="Update"></input>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- ===================================== -->
+    <div class="col-md-3">
+      <div class="card">
+        <img src="PICS/admin panel.webp" class="card-img-top" alt="">
+        
+      
+        <div class="card-body">
+            <button type="button" class="btn btn-primary " id="adminbtn">
+       ADMIN PANEL
+         </button>
+         </div>
+        </div>
+      </div>
+    <!-- ============================== -->
+        <div class="col-md-3">
+          <div class="card">
+            <img src="PICS/logout.jfif" width="900px" height="500px" class="card-img-top" alt="...">
+            <div class="card-body">
+                <button type="button"  id="logout" class="btn btn-primary"
+              >
+           LOGOUT
+        </button>
+      </div>
+          </div>
+          </div>
+        </div>
+      </div>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

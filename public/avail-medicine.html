@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <style>
+        .container
+        {
+            width:100%;
+            height:100%;
+            background-color: grey;
+        }
+    </style>
+    <script>
+        function loadFile(ref) {
+            var image = document.getElementById('prev3');
+            image.src = URL.createObjectURL(ref.files[0]);
+        };
+    </script>
+  </head>
+  <body>
+    <div class="container">
+    <nav class="navbar navbar-dark bg-dark">
+        <h1><font color="white"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;POST MEDICINE TO DONATE</center></font></h1>
+      </nav>
+      
+    <form class="row g-3" method="post" enctype="multipart/form-data">
+        <div class="col-md-6"> 
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" id="email">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Medicine Name</label>
+          <input type="text" class="form-control" id="medicine" name="medicine">
+        </div>
+        <div class="col-md-6">
+          <label for="inputAddress" class="form-label">Packing</label>
+          <select id="packing" class="form-select" name="packing">
+            <option selected>Choose...</option>
+            <option>Syrup</option>
+            <option>Tube</option>
+            <option>Tablets</option>
+          </select>
+         
+        </div>
+        <div class="col-md-4">
+          <label for="inputAddress2" class="form-label">Quantity </label>
+          <input type="int" class="form-control" id="qty" name="qty" placeholder="100">
+        </div>
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">Expiry Date</label>
+          <input type="date" class="form-control" id="expdate" name="expdate">
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Company</label>
+            <input type="text" class="form-control" id="company" name="company">
+            
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <input type="file" name="pic" accept=".jpg, .jpeg, .png" onchange="loadFile(this);">
+            </div>
+            <div class="col-md-6">
+                <img id="prev3" src="" width="100" height="100" alt="">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+          </div>
+        <div class="col-12">
+            <center>
+          <input type="submit" class="btn btn-dark" formaction="/profile-list" value="List the Medicine">
+           </center>
+          
+        </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <style>
+        .card
+        {
+            box-shadow: -3px -3px 5px lightskyblue;
+        }
+        .card-title
+        {
+            color:blue;
+            font-style: italic;
+        }
+    </style>
+    <script src="js/angular.min.js"></script>
+    <script>
+      var moduleKuch = angular.module("myModule", []);
+      moduleKuch.controller("myController", function ($scope, $http) {
+        $scope.fetchAllCities = function () {
+          $http.get("/fetchAllCities").then(fxSuccess, function (response) {
+            //alert(JSON.stringify(response.data));
+          });
+          function fxSuccess(response) {
+            //alert(JSON.stringify(response.data));
+            $scope.jsonAddrAry = response.data;
+          }
+        };
+        //==================================================================================
+        $scope.fetchAllMedic = function () {
+          alert("helooo");
+          var city = document.getElementById("combocity").value;
+          alert(city);
+          $http
+            .get("/fetchAllMedic?cityx=" + city)
+            .then(fxSuccess, function (response) {
+              alert(JSON.stringify(response));
+            });
+          function fxSuccess(response) {
+            alert(JSON.stringify(response.data));
+            $scope.jsonMedAry = response.data;
+          }
+        };
+        //=======================================================================================================================
+  
+      $scope.doSearchNow=function()
+            {
+                var medicine=document.getElementById("combomed").value;
+                alert(medicine);
+                $http.get("/fetchSomeMedRecords?medx="+medicine).then(fxSuccess,function(response){
+                        alert(JSON.stringify(response.data));
+                   });
+                   function fxSuccess(response)
+                   {
+                    alert(JSON.stringify(response.data));
+                    $scope.jsonAry=response.data;
+                   }
+            }
+        //======================================================================================================================
+     //  $scope.jsonAry2;
+        $scope.showDetails=function(email)
+        {
+          var url="/fetchalldetails?emailidX="+email;
+        //  alert("abc");
+                   $http.get(url).then(fxSuccess,function(response){
+                        alert(response.data);
+                   });
+                   function fxSuccess(response)
+                   {
+                        alert(response.data);
+                        $scope.jsonAry=response.data;
+                   }
+                  }
+        });
+    </script>
+    <style>
+      #title {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body
+    ng-app="myModule"
+    ng-controller="myController"
+    ng-init="fetchAllCities();"
+  >
+    <nav class="navbar bg-primary">
+      <div class="container-fluid">
+        <div id="title">
+          <center>
+            <h1>Search Your Medicines Here</h1>
+          </center>
+        </div>
+      </div>
+    </nav>
+    <br />
+    <br />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" align="left">
+          <h2>Cities</h2>
+          <select id="combocity" ng-model="combomed" ng-change="fetchAllMedic()">
+            <option value="none">Select</option>
+            <option ng-repeat="obj in jsonAddrAry" value="{{obj.city}}">
+              {{obj.city}}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6" align="right">
+          <h2>Medicines</h2>
+          <select id="combomed">
+            <option value="none">Select</option>
+            <option ng-repeat="obj in jsonMedAry" value="{{obj.medicine}}">
+              {{obj.medicine}}
+            </option>
+          </select>
+        </div>
+        <br />
+        <br />
+        <br />
+        <center>
+          <div class="col-md-5">
+            <center>
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Seek Donors"
+                ng-click="doSearchNow();"
+              />
+            </center>
+          </div>
+        </center>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3" ng-repeat="obj in jsonAry">
+          <div class="card">
+            <img
+              height="150"
+              src="uploads/{{obj.pic}}"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+                EmailId Of Donor:<h5 class="card-title">{{obj.email}}</h5>
+              Medicine:<h5 class="card-title">{{obj.medicine}}</h5>
+              Packing:<h5 class="card-title">{{obj.packing}}</h5>
+              Quantity:<h5 class="card-title">{{obj.qty}}</h5>
+              Expiry date:<h5 class="card-title">{{obj.expdate}}</h5>
+
+              Company:<h5 class="card-title">{{obj.company}}</h5>
+              Description:<h5 class="card-title">{{obj.description}}</h5>
+
+              Date Of List:<h5 class="card-title">{{obj.dateoflist}}</h5>
+
+
+              <!-- <a href="#" class="btn btn-primary"  id="exampleModal" ng-click=showDetails(obj.email);>Contact Donor</a> -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ng-click=showDetails(obj.email);>
+            Contact Donor
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================================== -->
+ 
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Contact Donors</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" ng-repeat="obj in jsonAry">
+  
+          <div class="mb-3">
+            <!-- <label for="recipient-name" class="col-form-label">{{obje.email}}</label> -->
+            EmailId Of Donor:<h5 class="card-title">{{obj.email}}</h5>   
+            Mobile No.:<h5 class="card-title">{{obj.mobile}}</h5>
+            Address:<h5 class="card-title">{{obj.address}}</h5>
+
+         
+          </div>
+      
+        </div>
+        <div class="modal-footer">
+         
+   
+        </div>
+      </div>
+    </div>
+  </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
